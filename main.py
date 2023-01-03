@@ -3,20 +3,21 @@ def get_none():
 
 
 def flatten_dict(book):
+    new_list = []
     for key, value in book.items():
         if type(value) == dict:
-            print('key', key)
             print('value', value)
             c = list(value.values())
-            return c
+            new_list.append(c)
             # Check if is a Dictionary inside a list
-        elif type(value) == list:
-            print('list-value:', value)  # checking the value
+        elif type(value) == list and type(value[0]) == dict:
+            print('list-value:', value[0])  # checking the value
             x = str(value)  # turning the list into a string
             # slicing the string to isolate the number
             x = x[x.find(' ') + 1:-2]
-            x = [int(x)]  # turning the string into a number
-            return x
+            x = int(x)  # turning the string into a number
+            new_list.append(x)
         else:
-            d = list(book.values())
-            return d
+            print('simple values:', value)
+            new_list.append(value)
+    return new_list
